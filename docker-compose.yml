@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  frontend:
+    image: nikhil07h07/fitness-frontend:latest
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: nikhil07h07/fitness-backend:latest
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/fitdb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fitdb
+    ports:
+      - "3306:3306"
